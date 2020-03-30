@@ -1,0 +1,556 @@
+@charset "UTF-8"; 
+
+$brand-color-alpha: #f45e58;
+$brand-color-beta: #1d5780;
+$brand-color-gamma: #3ECEB6;
+$brand-color-delta: #D5B319;
+
+
+@mixin for-small {
+  @media (max-width: 576px) {@content;}
+}
+
+@mixin for-medium {
+  @media (max-width: 900px) {@content;}
+}
+
+@mixin for-large {
+  @media (min-width: 900px) {@content;}
+}
+
+@mixin button($color) {
+    background-color: $color;
+    appearance: none;
+    color: white;
+    padding: 0.5em 1.2em;
+    border: none;
+    cursor: pointer;    
+
+    &:focus, &:hover {
+        background-color: darken($color, 10);
+    }
+
+    &:active {
+        background-color: darken(desaturate($color, 1), 5);
+    }
+}
+
+
+.button {
+    @include button(#333);
+}
+
+.button.sri-button-alpha {
+    @include button($brand-color-alpha);
+}
+
+.button.sri-button-beta {
+    @include button($brand-color-beta);
+}
+
+.button.sri-button-delta {
+    @include button($brand-color-delta);
+}
+
+.button.sri-button-gamma {
+    @include button($brand-color-gamma);
+}
+
+.sri-card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    background-color: #eee;
+}
+
+#main {
+    .sri-card {
+        display: block;
+        width: 25%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: calc(25% - 4em);
+        margin: 1.5em 2em;
+        background-image: linear-gradient(gray,silver);
+        background-size: cover;
+        background-position: center center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+
+        @include for-medium {
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: calc(50% - 4em);
+            margin: 2em;
+        }
+
+        @include for-small {
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: calc(100% - 4em);
+        }    
+
+        &::before {
+            content: "";
+            display: block;
+            padding-top: 100%;
+            transition: background-color 0.5s;
+        }
+
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        h2 {
+            font-size: 1.2em;
+            color: #fff;
+            margin: 0;
+        }            
+
+        .sri-card-overlay {
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            align-items: flex-end;
+            width: 100%;
+            max-width: 100%;
+            padding: 1.5em 1em;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgba(0,0,0,.5);
+            z-index: 1;
+
+            &.sri-card-opaque {
+                background-color: #555;
+            }
+
+            h2, h3 {
+                max-width: 100%;
+            }
+
+            .button ,h3 {
+                height: 0;
+                overflow: hidden;
+                transition: opacity 0.2s;
+                opacity: 0;
+                margin: 0;
+                padding: 0;
+            }
+
+            h2 {
+                font-size: 1.4em;
+                font-weight: 700;
+
+                @include for-medium {
+                    font-size: 1em;
+                }
+
+                @include for-small {
+                    font-size: 1.2em;
+                }
+
+                + h3 {
+                    border-color: rgba(255,255,255,.4);
+                    border-style: solid;
+                    border-width: 0;
+                }
+            }
+
+            h3 {
+                color: #fff;
+                font-size: 1em;
+
+                @include for-small {
+                    font-size: 1.2em;
+                }
+            }
+
+            .button {
+                z-index: 2;
+                
+                @include for-medium {
+                    font-size: 0.8em;
+                }
+
+                @include for-small {
+                    font-size: 1em;
+                }
+            }
+        }
+
+
+        &.sri-card-alpha {
+            .sri-card-overlay {
+                background-color: rgba($brand-color-alpha,.9);
+
+                .sri-button-alpha {
+                    @include button(darken($brand-color-alpha, 15));
+                    padding: 0;
+                }
+            }
+
+            &.sri-card-opaque {
+                .sri-card-overlay {
+                    background-color: $brand-color-alpha;
+                }
+            }
+        }
+
+        &.sri-card-beta {
+            .sri-card-overlay {
+                background-color: rgba($brand-color-beta,.9);
+
+                .sri-button-beta {
+                    @include button(darken($brand-color-beta, 15));
+                    padding: 0;
+                }
+            }
+
+            &.sri-card-opaque {
+                .sri-card-overlay {
+                    background-color: $brand-color-beta;
+                }
+            }
+        }
+
+        &.sri-card-gamma {
+            .sri-card-overlay {
+                background-color: rgba($brand-color-gamma,.9);
+
+                .sri-button-gamma {
+                    @include button(darken($brand-color-gamma, 15));
+                    padding: 0;
+                }
+            }
+
+            &.sri-card-opaque {
+                .sri-card-overlay {
+                    background-color: $brand-color-gamma;
+                }
+            }
+        }
+
+        &.sri-card-delta {
+            .sri-card-overlay {
+                background-color: rgba($brand-color-delta,.9);
+
+                .sri-button-delta {
+                    @include button(darken($brand-color-delta, 15));
+                    padding: 0;
+                }
+            }
+
+            &.sri-card-opaque {
+                .sri-card-overlay {
+                    background-color: $brand-color-delta;
+                }
+            }
+        }
+
+        &.open, &:focus, &:hover {
+            &::before {
+                background-color: rgba(0,0,0,.8);
+                transition: background-color 0.5s;
+            }
+
+            .sri-card-overlay {
+                align-items: center;
+                opacity: 1;
+                height: 100%;
+                background-color: transparent;
+                justify-content: center;         
+
+                h2 + h3 {
+                    padding-top: 0.5em;
+                    border-width: 1px 0 0 0;
+                    margin: 0.5em 0 1em;
+                }
+
+                .button, h3 {
+                    height: auto;
+                    opacity: 1;                
+                }
+
+                .button {
+                    padding: 0.5em 1.2em 0.4em;
+                }
+            }
+        }        
+
+
+        &.sri-card-alpha {
+            &.open, &:hover {
+                &::before {
+                    background-color: rgba($brand-color-alpha, .9);
+                }
+            }        
+        }
+
+        &.sri-card-beta {
+            &.open, &:hover {
+                &::before {
+                    background-color: rgba($brand-color-beta, .9);
+                }
+            }        
+        }    
+
+        &.sri-card-gamma {
+            &.open, &:hover {
+                &::before {
+                    background-color: rgba($brand-color-gamma, .9);
+                }
+            }        
+        }        
+
+        &.sri-card-delta {
+            &.open, &:hover {
+                &::before {
+                    background-color: rgba($brand-color-delta, .9);
+                }
+            }        
+        }        
+
+        &.sri-card-opaque {
+            &.open, &:hover {
+                &::before {
+                    background-color: #555;
+                    transition-duration: 0;        
+                }
+            }
+        }    
+
+        &.sri-card-opaque.sri-card-alpha {
+            &.open, &:hover {
+                &::before {
+                    background-color: $brand-color-alpha;
+                    transition-duration: 0;        
+                }
+            }
+        }
+
+        &.sri-card-opaque.sri-card-beta {
+            &.open, &:hover {
+                &::before {
+                    background-color: $brand-color-beta;
+                    transition-duration: 0;        
+                }
+            }
+        }
+
+        &.sri-card-opaque.sri-card-gamma {
+            &.open, &:hover {
+                &::before {
+                    background-color: $brand-color-gamma;
+                    transition-duration: 0;        
+                }
+            }
+        }    
+
+        &.sri-card-opaque.sri-card-delta {
+            &.open, &:hover {
+                &::before {
+                    background-color: $brand-color-delta;
+                    transition-duration: 0;        
+                }
+            }
+        }    
+
+
+    &.sri-card-view-more {
+        background: #fff;
+
+        h2 {
+            color: #15749e;    
+
+            &:focus, &:hover {
+                color: #0f5371;        
+            }
+
+            &:active {
+                color: #126387;
+            }        
+        }
+
+        .sri-card-overlay {
+            background-color: #fff;
+            height: calc(100% - 2em);
+            width: calc(100% - 2em);
+            top: 1em;
+            right: 1em;
+            bottom: 1em;
+            left: 1em;
+            justify-content: center;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #e9c10c #1d7aa2 #6fc1b3 #e17874;    
+
+            h4 {
+                color: #fff;
+                margin-bottom: 0;
+            }
+            
+            h3 a {
+                color: #eee;
+                margin-bottom: 0;
+            }        
+        }
+
+        &:focus, &:hover {
+            &::before {
+                content: none;
+            }    
+
+            .sri-card-overlay {
+                border-color: #d1ad0b #0e394b #3d8d7f #c5302a;
+            }
+
+            h2 {
+                text-decoration: underline;
+            }
+        }
+        }
+    }
+}
+
+
+.image-section {
+    display: flex;
+    max-width: 100%;
+}
+@media screen and (max-width:768px) {
+    .image-section {
+        display: block;
+    }
+}
+.image-section.image-section-overlay {
+    position: relative;
+}
+@media screen and (max-width:768px) {
+    .image-section.image-section-overlay {
+        padding: 2em;
+    }
+}
+.image-section.image-section-overlay .image-section-image {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+@media screen and (max-width:768px) {
+    .image-section.image-section-overlay .image-section-image {
+        width: 100%;
+        z-index: -1;
+    }
+}
+.image-section.image-section-overlay .image-section-content,
+.image-section.image-section-overlay .image-section-extra {
+    flex: 1 1 50%;
+}
+.image-section.image-section-overlay .image-section-content {
+    padding: 2em;
+    background: rgba(255,255,255,.85);
+}
+.image-section.image-section-overlay .image-section-content.sri-content-alpha a,
+.image-section.image-section-overlay .image-section-content.sri-content-beta a {
+    color: #fff;
+    text-decoration-color: rgba(255,255,255,.7);
+}
+.image-section.image-section-overlay .image-section-content.sri-content-alpha a:focus,
+.image-section.image-section-overlay .image-section-content.sri-content-alpha a:hover,
+.image-section.image-section-overlay .image-section-content.sri-content-beta a:focus,
+.image-section.image-section-overlay .image-section-content.sri-content-beta a:hover {
+    color: #fff;
+    text-decoration-color: #155977;
+}
+.image-section.image-section-overlay .image-section-content.sri-content-alpha {
+    background-color: rgba(225,120,116,.85);
+}
+.image-section.image-section-overlay .image-section-content.sri-content-beta {
+    background-color: rgba(29,122,162,.85);
+}
+.image-section.image-section-overlay .image-section-content.sri-content-beta a {
+    color: #fff;
+    text-decoration-color: #59e6ff;
+}
+.image-section.image-section-overlay .image-section-content.sri-content-beta a:focus,
+.image-section.image-section-overlay .image-section-content.sri-content-beta a:hover {
+    color: #fff;
+    text-decoration-color: #fff;
+}
+.image-section.image-section-overlay .image-section-extra {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.image-section.image-section-overlay .image-section-extra .button {
+    display: inline-block;
+}
+@media screen and (max-width:768px) {
+    .image-section.image-section-overlay .image-section-extra .button {
+        font-size: 1.6em;
+        white-space: nowrap;
+    }
+}
+.image-section.image-section-overlay-opaque .image-section-image {
+    width: 50%;
+    left: 50%;
+    background-size: cover;
+    background-position: left center;
+}
+@media screen and (max-width:768px) {
+    .image-section.image-section-overlay-opaque .image-section-image {
+        width: 100%;
+    }
+}
+.image-section.image-section-overlay-opaque .image-section-content {
+    background-color: #fff;
+}
+.image-section.image-section-overlay-opaque .image-section-content.sri-content-alpha {
+    background-color: #e17874;
+}
+.image-section.image-section-overlay-opaque .image-section-content.sri-content-beta {
+    background-color: #1d7aa2;
+}
+.image-section.image-section-content-right .image-section-extra {
+    order: 1;
+}
+.image-section.image-section-content-right .image-section-content {
+    order: 2;
+}
+.image-section.image-section-content-right .image-section-image {
+    background-position: left center;
+    left: 0;
+}
+.image-section .image-section-extra {
+    order: 1;
+}
+@media screen and (max-width:768px) {
+    .image-section .image-section-extra .button {
+        margin: 2em;
+    }
+}
+
+.headings-wrapper {
+    background: #666;
+    padding: 2em;
+
+    h1 {
+        color: white;
+    }
+    
+}
